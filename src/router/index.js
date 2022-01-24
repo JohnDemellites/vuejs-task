@@ -23,7 +23,7 @@ const routes = [
     path: "/albums",
     name: "Albums",
     component: () => import("../views/Albums.vue"),
-  }
+  },
 ];
 
 const router = new VueRouter({

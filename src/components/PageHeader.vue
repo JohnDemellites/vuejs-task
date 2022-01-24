@@ -4,7 +4,8 @@
       <slot></slot>
     </div>
     <div class="user-details" v-if="email || phone || address || company">
-      <b>Email:</b> {{ email }} | <b>Phone:</b> {{ phone }} | <b>City:</b> {{ address }} | <b>Company:</b> {{ company }}
+      <b>Email:</b> {{ email }} | <b>Phone:</b> {{ phone }} | <b>City:</b>
+      {{ address }} | <b>Company:</b> {{ company }}
     </div>
   </div>
 </template>
@@ -14,22 +15,22 @@ export default {
   props: {
     email: {
       type: String,
-      default: ''
+      default: "",
     },
     phone: {
       type: String,
-      default: ''
+      default: "",
     },
     address: {
       type: String,
-      default: ''
+      default: "",
     },
     company: {
       type: String,
-      default: ''
-    }
-  }
-}
+      default: "",
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

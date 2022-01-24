@@ -20,7 +20,7 @@ export default {
     ...mapGetters({
       userAlbums: "getUserAlbums",
     }),
-  }
+  },
 };
 </script>
 

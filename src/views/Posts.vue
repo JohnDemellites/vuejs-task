@@ -38,32 +38,32 @@ export default {
     PostCard,
     SpinningLoader,
     Pagination,
-    FilterBox
+    FilterBox,
   },
   data() {
     return {
-      currentPage: 1
-    }
+      currentPage: 1,
+    };
   },
   created() {
-    this.getAllPostsOrAlbums('posts')
+    this.getAllPostsOrAlbums("posts");
   },
   computed: {
     ...mapGetters({
-      posts: 'getPaginatedPosts',
-      loaderStatus: 'getLoaderStatus',
-      postsLength: 'getPostsLength'
-    })
+      posts: "getPaginatedPosts",
+      loaderStatus: "getLoaderStatus",
+      postsLength: "getPostsLength",
+    }),
   },
   methods: {
     ...mapActions({
-      getAllPostsOrAlbums: 'getAllPostsOrAlbums'
+      getAllPostsOrAlbums: "getAllPostsOrAlbums",
     }),
     nextPage(event) {
-      this.currentPage = event
-    }
-  }
-}
+      this.currentPage = event;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

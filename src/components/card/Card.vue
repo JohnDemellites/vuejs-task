@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="card"
-    :style="`max-width:${maxWidth};width:${maxWidth};`"
-  >
+  <div class="card" :style="`max-width:${maxWidth};width:${maxWidth};`">
     <div class="title">{{ title }}</div>
     <div class="body" v-if="body">{{ body }}</div>
     <div class="user" v-if="user">By {{ user }}</div>
@@ -27,7 +24,7 @@ export default {
     maxWidth: {
       type: String,
       default: "500px",
-    }
+    },
   },
 };
 </script>

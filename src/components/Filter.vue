@@ -1,8 +1,6 @@
 <template>
   <div class="filter-container">
-    <div class="title">
-      Filter by:
-    </div>
+    <div class="title">Filter by:</div>
     <SelectBox :is-posts-page="isPostsPage" :is-albums-page="isAlbumsPage" />
     <TextBox :is-posts-page="isPostsPage" :is-albums-page="isAlbumsPage" />
     <div class="results" v-if="!loaderStatus">
@@ -12,42 +10,42 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import SelectBox from "./forms/SelectBox.vue"
-import TextBox from "./forms/TextBox.vue"
+import { mapGetters } from "vuex";
+import SelectBox from "./forms/SelectBox.vue";
+import TextBox from "./forms/TextBox.vue";
 
 export default {
   props: {
     isPostsPage: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isAlbumsPage: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   components: {
     TextBox,
-    SelectBox
+    SelectBox,
   },
   computed: {
     ...mapGetters({
-      postsLength: 'getPostsLength',
-      albumsLength: 'getAlbumsLength',
-      loaderStatus: 'getLoaderStatus'
+      postsLength: "getPostsLength",
+      albumsLength: "getAlbumsLength",
+      loaderStatus: "getLoaderStatus",
     }),
     numberOfResults() {
-      const route = this.$route.path
-      if (route === '/posts') {
-        return this.postsLength
-      } else if (route === '/albums') {
-        return this.albumsLength
+      const route = this.$route.path;
+      if (route === "/posts") {
+        return this.postsLength;
+      } else if (route === "/albums") {
+        return this.albumsLength;
       }
-      return ''
-    }
-  }
-}
+      return "";
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .filter-container {

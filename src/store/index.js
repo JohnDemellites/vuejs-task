@@ -21,7 +21,7 @@ import {
   FILTER_ALBUMS,
   SET_FILTERED_ALBUMS_LENGTH,
   PAGINATE_POSTS,
-  PAGINATE_ALBUMS
+  PAGINATE_ALBUMS,
 } from "./mutation-types";
 
 Vue.use(Vuex);
@@ -47,11 +47,11 @@ export default new Vuex.Store({
     filteredAlbumsLength: 0,
     filteredPosts: [],
     selectedUsersPosts: [],
-    filterWord: '',
+    filterWord: "",
     filteredAlbums: [],
     selectedUsersAlbums: [],
     paginatedPosts: [],
-    paginatedAlbums: []
+    paginatedAlbums: [],
   },
   mutations: {
     [SPINNING_LOADER_STATUS](state, payload) {
@@ -64,12 +64,12 @@ export default new Vuex.Store({
       state.user = payload;
     },
     [SELECT_USER](state, payload) {
-      state.selectedUsers.push(payload)
+      state.selectedUsers.push(payload);
     },
     [REMOVE_USER](state, payload) {
       const index = state.selectedUsers.indexOf(payload);
       if (index > -1) {
-        state.selectedUsers.splice(index, 1)
+        state.selectedUsers.splice(index, 1);
       }
     },
     [SET_ALL_POSTS](state, payload) {
@@ -85,31 +85,31 @@ export default new Vuex.Store({
       state.userAlbums = payload;
     },
     [FILTER_WORD](state, payload) {
-      state.filterWord = payload
+      state.filterWord = payload;
     },
     [SET_POSTS_OF_SELECTED_USERS](state, payload) {
-      state.selectedUsersPosts = payload
+      state.selectedUsersPosts = payload;
     },
     [SET_ALBUMS_OF_SELECTED_USERS](state, payload) {
-      state.selectedUsersAlbums = payload
+      state.selectedUsersAlbums = payload;
     },
     [FILTER_POSTS](state, payload) {
-      state.filteredPosts = payload
+      state.filteredPosts = payload;
     },
     [SET_FILTERED_POSTS_LENGTH](state, payload) {
-      state.filteredPostsLength = payload
+      state.filteredPostsLength = payload;
     },
     [FILTER_ALBUMS](state, payload) {
-      state.filteredAlbums = payload
+      state.filteredAlbums = payload;
     },
     [SET_FILTERED_ALBUMS_LENGTH](state, payload) {
-      state.filteredAlbumsLength = payload
+      state.filteredAlbumsLength = payload;
     },
     [PAGINATE_POSTS](state, payload) {
-      state.paginatedPosts = payload
+      state.paginatedPosts = payload;
     },
     [PAGINATE_ALBUMS](state, payload) {
-      state.paginatedAlbums = payload
+      state.paginatedAlbums = payload;
     },
   },
   getters: {
@@ -132,20 +132,20 @@ export default new Vuex.Store({
       return state.selectedUsers;
     },
     getPostsLength(state) {
-      return state.filteredPostsLength
+      return state.filteredPostsLength;
     },
     getAlbumsLength(state) {
-      return state.filteredAlbumsLength
+      return state.filteredAlbumsLength;
     },
     getFilterWord(state) {
-      return state.filterWord
+      return state.filterWord;
     },
     getPaginatedPosts(state) {
-      return state.paginatedPosts
+      return state.paginatedPosts;
     },
     getPaginatedAlbums(state) {
-      return state.paginatedAlbums
-    }
+      return state.paginatedAlbums;
+    },
   },
   actions: {
     async getUsers({ commit }) {
@@ -163,7 +163,7 @@ export default new Vuex.Store({
       dispatch("getUserPostsAlbums", userId);
     },
     selectUser({ commit, state }, payload) {
-      let userId = state.selectedUsers.find(e => e === payload)
+      let userId = state.selectedUsers.find((e) => e === payload);
       if (!userId) {
         commit(SELECT_USER, payload);
       } else {
@@ -183,36 +183,42 @@ export default new Vuex.Store({
     },
     async getAllPostsOrAlbums({ commit, state, dispatch }, page) {
       try {
-        let response
+        let response;
         commit(SPINNING_LOADER_STATUS, true);
         if (state.selectedUsers.length === 0) {
           response = await axios.get(`/${page}`);
-          for( let i = 0; i < response.data.length; i++) {
-            let user = state.users.find(element => element.id ===  response.data[i].userId)
-            response.data[i].user = user.name
+          for (let i = 0; i < response.data.length; i++) {
+            let user = state.users.find(
+              (element) => element.id === response.data[i].userId
+            );
+            response.data[i].user = user.name;
           }
-          if (page === 'posts') {
+          if (page === "posts") {
             commit(SET_ALL_POSTS, response.data);
-          } else if (page === 'albums') {
+          } else if (page === "albums") {
             commit(SET_ALL_ALBUMS, response.data);
           }
         } else {
-          const tempArray = []
-          for( let i = 0; i < state.selectedUsers.length; i++ ) {
-            response = await axios.get(`/${page}?userId=${state.selectedUsers[i]}`);
-            for( let e = 0; e < response.data.length; e++) {
-              let user = state.users.find(element => element.id ===  response.data[e].userId)
-              response.data[e].user = user.name
+          const tempArray = [];
+          for (let i = 0; i < state.selectedUsers.length; i++) {
+            response = await axios.get(
+              `/${page}?userId=${state.selectedUsers[i]}`
+            );
+            for (let e = 0; e < response.data.length; e++) {
+              let user = state.users.find(
+                (element) => element.id === response.data[e].userId
+              );
+              response.data[e].user = user.name;
             }
-            tempArray.push(response.data)
-            if (page === 'posts') {
+            tempArray.push(response.data);
+            if (page === "posts") {
               commit(SET_POSTS_OF_SELECTED_USERS, tempArray.flat());
-            } else if (page === 'albums') {
+            } else if (page === "albums") {
               commit(SET_ALBUMS_OF_SELECTED_USERS, tempArray.flat());
             }
           }
         }
-        dispatch('filterResults', page)
+        dispatch("filterResults", page);
         commit(SPINNING_LOADER_STATUS, false);
       } catch (error) {
         console.error(error);
@@ -220,56 +226,57 @@ export default new Vuex.Store({
     },
     filterResults({ commit, state, dispatch }, page) {
       commit(SPINNING_LOADER_STATUS, true);
-      let resultsArray = [], tempArray = []
-      if (page === 'posts') {
+      let resultsArray = [],
+        tempArray = [];
+      if (page === "posts") {
         if (state.selectedUsers.length > 0) {
-          tempArray = state.selectedUsersPosts
+          tempArray = state.selectedUsersPosts;
         } else {
-          tempArray = state.allPosts
+          tempArray = state.allPosts;
         }
-      } else if (page === 'albums') {
+      } else if (page === "albums") {
         if (state.selectedUsers.length > 0) {
-          tempArray = state.selectedUsersAlbums
+          tempArray = state.selectedUsersAlbums;
         } else {
-          tempArray = state.allAlbums
+          tempArray = state.allAlbums;
         }
       }
       for (let i = 0; i < tempArray.length; i++) {
         if (tempArray[i].title.indexOf(state.filterWord) > -1) {
-          resultsArray.push(tempArray[i])
+          resultsArray.push(tempArray[i]);
         }
       }
-      if (page === 'posts') {
+      if (page === "posts") {
         commit(FILTER_POSTS, resultsArray);
-        commit(SET_FILTERED_POSTS_LENGTH, resultsArray.length)
-      } else if (page === 'albums') {
+        commit(SET_FILTERED_POSTS_LENGTH, resultsArray.length);
+      } else if (page === "albums") {
         commit(FILTER_ALBUMS, resultsArray);
-        commit(SET_FILTERED_ALBUMS_LENGTH, resultsArray.length)
+        commit(SET_FILTERED_ALBUMS_LENGTH, resultsArray.length);
       }
-      dispatch('paginate', { currentPage: 1, page: page})
+      dispatch("paginate", { currentPage: 1, page: page });
     },
     paginate({ commit, state }, payload) {
-      let PAGE, END, START
-      const { currentPage, page } = payload 
+      let PAGE, END, START;
+      const { currentPage, page } = payload;
       if (currentPage === 1) {
-        PAGE = currentPage - 1
-        END = PAGE + 10
-        START = END - 10  
+        PAGE = currentPage - 1;
+        END = PAGE + 10;
+        START = END - 10;
       } else {
-        PAGE = currentPage
-        END = PAGE * 10
-        START = END - 10
+        PAGE = currentPage;
+        END = PAGE * 10;
+        START = END - 10;
       }
-      if (page === 'posts') {
-        commit(PAGINATE_POSTS, state.filteredPosts.slice(START, END))
-      } else if (page === 'albums') {
-        commit(PAGINATE_ALBUMS, state.filteredAlbums.slice(START, END))
+      if (page === "posts") {
+        commit(PAGINATE_POSTS, state.filteredPosts.slice(START, END));
+      } else if (page === "albums") {
+        commit(PAGINATE_ALBUMS, state.filteredAlbums.slice(START, END));
       }
       commit(SPINNING_LOADER_STATUS, false);
     },
     updateFilterWord({ commit }, payload) {
-      commit(FILTER_WORD, payload)
-    }
+      commit(FILTER_WORD, payload);
+    },
   },
   plugins: [vuexLocal.plugin],
 });

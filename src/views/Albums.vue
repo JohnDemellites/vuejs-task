@@ -15,9 +15,9 @@
     <Pagination
       v-if="!loaderStatus"
       :is-albums-page="true"
-      :items="albumsLength" 
-      :current-page="currentPage" 
-      @clickPageListener="nextPage" 
+      :items="albumsLength"
+      :current-page="currentPage"
+      @clickPageListener="nextPage"
     />
   </div>
 </template>
@@ -37,32 +37,32 @@ export default {
     AlbumsCard,
     SpinningLoader,
     Pagination,
-    FilterBox
+    FilterBox,
   },
   data() {
     return {
-      currentPage: 1
-    }
+      currentPage: 1,
+    };
   },
   created() {
-    this.getAllPostsOrAlbums('posts')
+    this.getAllPostsOrAlbums("posts");
   },
   computed: {
     ...mapGetters({
-      albums: 'getPaginatedAlbums',
-      loaderStatus : 'getLoaderStatus',
-      albumsLength: 'getAlbumsLength'
-    })
+      albums: "getPaginatedAlbums",
+      loaderStatus: "getLoaderStatus",
+      albumsLength: "getAlbumsLength",
+    }),
   },
   methods: {
     ...mapActions({
-      getAllPostsOrAlbums: 'getAllPostsOrAlbums'
+      getAllPostsOrAlbums: "getAllPostsOrAlbums",
     }),
     nextPage(event) {
-      this.currentPage = event
-    }
-  }
-}
+      this.currentPage = event;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

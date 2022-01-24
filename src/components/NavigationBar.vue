@@ -1,9 +1,15 @@
 <template>
   <div id="navigation-bar">
     <div class="button-container">
-      <Button @click.native="goTo('/')" :secondary="!isInHomePage"> Home </Button>
-      <Button @click.native="goTo('/posts')" :secondary="!isInPostsPage"> Posts </Button>
-      <Button @click.native="goTo('/albums')" :secondary="!isInAlbumsPage"> Albums </Button>
+      <Button @click.native="goTo('/')" :secondary="!isInHomePage">
+        Home
+      </Button>
+      <Button @click.native="goTo('/posts')" :secondary="!isInPostsPage">
+        Posts
+      </Button>
+      <Button @click.native="goTo('/albums')" :secondary="!isInAlbumsPage">
+        Albums
+      </Button>
     </div>
   </div>
 </template>
@@ -16,14 +22,14 @@ export default {
   },
   computed: {
     isInHomePage() {
-      return this.$route.path === '/' || this.$route.path === '/user'
+      return this.$route.path === "/" || this.$route.path === "/user";
     },
     isInPostsPage() {
-      return this.$route.path === '/posts'
+      return this.$route.path === "/posts";
     },
     isInAlbumsPage() {
-      return this.$route.path === '/albums'
-    }
+      return this.$route.path === "/albums";
+    },
   },
   methods: {
     goTo(path) {

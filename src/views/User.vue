@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <PageHeader 
+    <PageHeader
       :email="user.email"
       :phone="user.phone"
       :address="user.address.city"

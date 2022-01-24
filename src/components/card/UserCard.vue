@@ -41,13 +41,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedUsers: "getSelectedUsers"
-    })
+      selectedUsers: "getSelectedUsers",
+    }),
   },
   methods: {
     ...mapActions({
       getUser: "getUser",
-      selectUser: "selectUser"
+      selectUser: "selectUser",
     }),
     goToUserSummaryPage(event) {
       event.stopPropagation();
@@ -55,13 +55,13 @@ export default {
       this.$router.push("/user");
     },
     isUserSelected(userId) {
-      const user = this.selectedUsers.find(e => e === userId)
+      const user = this.selectedUsers.find((e) => e === userId);
       if (user) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
-    }
+    },
   },
 };
 </script>

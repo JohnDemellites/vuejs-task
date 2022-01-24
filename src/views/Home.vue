@@ -26,11 +26,11 @@ export default {
   components: {
     PageHeader,
     UserCard,
-    Tag
+    Tag,
   },
   computed: {
     ...mapGetters({
-      users: "getAllUsers"
+      users: "getAllUsers",
     }),
   },
   mounted() {
